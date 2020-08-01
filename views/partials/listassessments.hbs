@@ -1,0 +1,31 @@
+<table class="ui celled table">
+    <thead>
+    <tr>
+        <th>Weight</th>
+        <th>Chest</th>
+        <th>Thigh</th>
+        <th>Upper Arm</th>
+        <th>Waist</th>
+        <th>Hips</th>
+        <th>Remove</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each assessments}}
+        <tr>
+            <td> {{weight}} </td>
+            <td> {{chest}} </td>
+            <td> {{thigh}} </td>
+            <td> {{upperArm}} </td>
+            <td> {{waist}} </td>
+            <td> {{hips}} </td>
+            <td>
+                <a href="/dashboard/deleteassessment/{{id}}" class="ui icon button">
+                 <i class="icon trash"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    {{/each}}
+</table>
+

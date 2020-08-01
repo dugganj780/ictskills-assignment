@@ -1,0 +1,14 @@
+{
+  "members": [
+    {
+      "firstname": "James",
+      "lastname": "Duggan",
+      "email": "dugganj780@gmail.com",
+      "password": "secret",
+      "address": "Cork",
+      "height": "180",
+      "startingweight": "76",
+      "id": "0e691210-cf7d-11ea-b54e-d502721edfcb"
+    }
+  ]
+}

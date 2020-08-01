@@ -1,4 +1,4 @@
-~"use strict";
+"use strict";
 
 const express = require("express");
 const router = express.Router();
@@ -6,7 +6,7 @@ const router = express.Router();
 const accounts = require("./controllers/accounts.js");
 const dashboard = require("./controllers/dashboard.js");
 const about = require("./controllers/about.js");
-const playlist = require("./controllers/playlist.js");
+const assessment = require("./controllers/assessment.js");
 
 router.get("/", accounts.index);
 router.get("/login", accounts.login);
@@ -16,12 +16,11 @@ router.post("/register", accounts.register);
 router.post("/authenticate", accounts.authenticate);
 
 router.get("/dashboard", dashboard.index);
-router.get("/dashboard/deleteplaylist/:id", dashboard.deletePlaylist);
-router.post("/dashboard/addplaylist", dashboard.addPlaylist);
+router.get("/dashboard/deleteassessment/:id", dashboard.deleteAssessment);
+router.post("/dashboard/addassessment", dashboard.addAssessment);
 
 router.get("/about", about.index);
-router.get("/playlist/:id", playlist.index);
-router.get("/playlist/:id/deletesong/:songid", playlist.deleteSong);
-router.post("/playlist/:id/addsong", playlist.addSong);
+router.get("/assessment/:id", assessment.index);
+
 
 module.exports = router;
