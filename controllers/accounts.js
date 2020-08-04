@@ -33,6 +33,7 @@ const accounts = {
 
   register(request, response) {
     const member = request.body;
+    member.startingBMI = Math.round((member.startingweight) / ((member.height / 100) * (member.height / 100))*100)/100;
     member.id = uuid.v1();
     memberstore.addMember(member);
     logger.info(`registering ${member.email}`);
@@ -43,7 +44,7 @@ const accounts = {
     const member = memberstore.getMemberByEmail(request.body.email);
     if (member) {
       response.cookie("assessment", member.email);
-      logger.info(`logging in ${member.email}`);
+      logger.info(`logging in ${member.email} and ${member.BMI}`);
       response.redirect("/dashboard");
     } else {
       response.redirect("/login");

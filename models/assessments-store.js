@@ -2,7 +2,8 @@
 
 const _ = require("lodash");
 const JsonStore = require("./json-store");
-const accounts = require("./accounts.js");
+const accounts = require("../controllers/accounts");
+
 
 const assessmentsStore = {
   store: new JsonStore("./models/assessments-store.json", {
@@ -44,18 +45,30 @@ const assessmentsStore = {
   },
 
   calculateBMI(memberid) {
-    const latestWeight = assessmentsStore.getLatestAssessment(memberid).weight;
-    const height = accounts.getCurrentMember(memberid).height;
+    const loggedInMember = accounts.getCurrentMember(memberid);
+
+    let latestWeight = undefined;
+
+    if (assessmentsStore.getMemberAssessments(memberid).length < 0){
+      latestWeight = this.getLatestAssessment(memberid).weight;
+    }
+
+
+
+    const height = loggedInMember.height;
+    let BMI = undefined;
 
     if(latestWeight==undefined) {
-      let BMI = (loggedInMember.startingweight) / ((height / 100) * (height / 100));
+      BMI = (loggedInMember.startingweight) / ((height / 100) * (height / 100));
     }
-      else
+    else
     {
-      let BMI = (latestWeight) / ((height / 100) * (height / 100));
+      BMI = (latestWeight) / ((height / 100) * (height / 100));
     }
     return BMI;
   },
+
+
 };
 
 module.exports = assessmentsStore;

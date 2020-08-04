@@ -1,36 +1,17 @@
 {
   "assessmentsCollection": [
     {
-      "id": "1cd065f0-cf7e-11ea-82ea-cd0e23ca5386",
-      "memberid": "0e691210-cf7d-11ea-b54e-d502721edfcb",
-      "weight": "76",
-      "chest": "90",
-      "thigh": "60",
-      "upperArm": "40",
-      "waist": "80",
-      "hips": "80"
-    },
-    {
-      "id": "f33df8e0-d3f3-11ea-a4d8-830929d5d21d",
-      "memberid": "0e691210-cf7d-11ea-b54e-d502721edfcb",
-      "weight": "75",
-      "chest": "89",
-      "thigh": "60",
-      "upperArm": "43",
-      "waist": "80",
-      "hips": "80",
-      "date": 1596285529966
-    },
-    {
-      "id": "0f17cb40-d3f4-11ea-a4d8-830929d5d21d",
+      "id": "8d19c4f0-d677-11ea-8241-5ff468829804",
       "memberid": "0e691210-cf7d-11ea-b54e-d502721edfcb",
       "weight": "77",
       "chest": "90",
-      "thigh": "50",
+      "thigh": "60",
       "upperArm": "40",
-      "waist": "80.5",
+      "waist": "80",
       "hips": "80",
-      "date": 1596285576692
+      "date": 1596561954495,
+      "BMI": 23.77,
+      "BMIpresent": true
     }
   ]
 }

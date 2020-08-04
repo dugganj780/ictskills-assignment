@@ -9,6 +9,17 @@
       "height": "180",
       "startingweight": "76",
       "id": "0e691210-cf7d-11ea-b54e-d502721edfcb"
+    },
+    {
+      "firstname": "Homer",
+      "lastname": "Simpson",
+      "email": "homer@simpson.com",
+      "password": "secret",
+      "address": "Springfield",
+      "height": "175",
+      "startingweight": "95",
+      "startingBMI": 31.02,
+      "id": "2c8419f0-d664-11ea-9a98-8766307be16f"
     }
   ]
 }

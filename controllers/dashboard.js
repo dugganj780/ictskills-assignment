@@ -10,14 +10,26 @@ const dashboard = {
   index(request, response) {
     logger.info("dashboard rendering");
     const loggedInMember = accounts.getCurrentMember(request);
+
+
+
     const viewData = {
       title: "Assessments Dashboard",
       firstname: loggedInMember.firstname,
       lastname: loggedInMember.lastname,
       assessments: assessmentsStore.getMemberAssessments(loggedInMember.id),
-      BMI: assessmentsStore.calculateBMI(loggedInMember.id),
+      //BMIpresent: false,
+      //BMI: assessmentsStore.getLatestAssessment(loggedInMember.id).BMI,
+      //startingBMI: loggedInMember.startingBMI,
+      //BMI: assessmentsStore.calculateBMI(loggedInMember.id),
+      BMI: function() {
+        let BMI;
+        if (assessmentsStore.getMemberAssessments(loggedInMember).length==0){BMI = loggedInMember.startingBMI;}
+        else{BMI = assessmentsStore.getLatestAssessment(loggedInMember.id).BMI}
+        return BMI;
+      }
     };
-    logger.info("about to render", assessmentsStore.getAllAssessments());
+    logger.info("about to render render", assessmentsStore.getAllAssessments());
     response.render("dashboard", viewData);
   },
 
@@ -41,6 +53,8 @@ const dashboard = {
       waist: request.body.waist,
       hips: request.body.hips,
       date: Date.now(),
+      BMI: Math.round((request.body.weight) / ((loggedInMember.height / 100) * (loggedInMember.height / 100))*100)/100,
+      BMIpresent: true,
 
     };
     logger.debug("Creating a new Assessment", newAssessment);
@@ -48,6 +62,19 @@ const dashboard = {
     response.redirect("/dashboard");
   },
 
+  calculateBMI(memberid) {
+    const latestWeight = assessmentsStore.getLatestAssessment(memberid).weight;
+    const height = accounts.getCurrentMember(memberid).height;
+
+    if(latestWeight==undefined) {
+      let BMI = (loggedInMember.startingweight) / ((height / 100) * (height / 100));
+    }
+    else
+    {
+      let BMI = (latestWeight) / ((height / 100) * (height / 100));
+    }
+    return BMI;
+  },
 
 };
 
