@@ -6,18 +6,19 @@ const assessmentsStore = require("../models/assessments-store");
 const memberStore = require("../models/member-store")
 const uuid = require("uuid");
 
-const dashboard = {
+const trainerview = {
   index(request, response) {
-    logger.info("dashboard rendering");
-    const loggedInMember = accounts.getCurrentMember(request);
+    logger.info("trainer view rendering");
+    const memberId = request.params.id;
+    const member = memberStore.getMemberById(memberId)
 
 
 
     const viewData = {
-      title: "Assessments Dashboard",
-      firstname: loggedInMember.firstname,
-      lastname: loggedInMember.lastname,
-      assessments: assessmentsStore.getMemberAssessments(loggedInMember.id),
+      title: "Trainer View",
+      firstname: member.firstname,
+      lastname: member.lastname,
+      assessments: assessmentsStore.getMemberAssessments(member.id),
       //BMIpresent: false,
       //BMI: assessmentsStore.getLatestAssessment(loggedInMember.id).BMI,
       //startingBMI: loggedInMember.startingBMI,
@@ -28,21 +29,21 @@ const dashboard = {
         else{BMI = assessmentsStore.getLatestAssessment(loggedInMember.id).BMI}
         return BMI;
       }*/
-      BMI: dashboard.calculateBMI(loggedInMember.id),
-      BMIcategory: dashboard.BMIcategory(loggedInMember.id),
-      isIdealBodyWeight: dashboard.isIdealBodyWeight(loggedInMember.id)
+      BMI: trainerview.calculateBMI(member.id),
+      BMIcategory: trainerview.BMIcategory(member.id),
+      isIdealBodyWeight: trainerview.isIdealBodyWeight(member.id)
     };
-    logger.info("about to render render", assessmentsStore.getAllAssessments());
-    response.render("dashboard", viewData);
+    logger.info("about to render", assessmentsStore.getAllAssessments());
+    response.render("trainerview", viewData);
   },
 
-  
+
 
   deleteAssessment(request, response) {
     const assessmentId = request.params.id;
-    logger.debug(`Deleting Playlist ${assessmentId}`);
+    logger.debug(`Deleting Assessment ${assessmentId}`);
     assessmentsStore.removeAssessment(assessmentId);
-    response.redirect("/dashboard");
+    response.redirect("/trainerview");
   },
 
   addAssessment(request, response) {
@@ -59,12 +60,12 @@ const dashboard = {
       hips: request.body.hips,
       date: Date.now(),
       BMI: Math.round((request.body.weight) / ((loggedInMember.height / 100) * (loggedInMember.height / 100))*100)/100,
-      BMIpresent: true,
+      comment: undefined,
 
     };
     logger.debug("Creating a new Assessment", newAssessment);
     assessmentsStore.addAssessment(newAssessment);
-    response.redirect("/dashboard");
+    response.redirect("/trainerview");
   },
 
   calculateBMI(memberid) {
@@ -78,7 +79,7 @@ const dashboard = {
 
   BMIcategory(memberid){
     const loggedInMember = memberStore.getMemberById(memberid);
-    const currentBMI = dashboard.calculateBMI(loggedInMember.id);
+    const currentBMI = trainerview.calculateBMI(loggedInMember.id);
 
     let category;
     if(currentBMI<18.5){category="UNDERWEIGHT";}
@@ -98,7 +99,7 @@ const dashboard = {
     let latestWeight;
 
     if(assessmentsStore.getMemberAssessments(memberid).length<0){
-    latestWeight = assessmentsStore.getLatestAssessment(memberid).weight;}
+      latestWeight = assessmentsStore.getLatestAssessment(memberid).weight;}
     else{latestWeight = loggedInMember.startingweight;}
 
     let isIdealBodyWeight = false;
@@ -117,6 +118,19 @@ const dashboard = {
     return  isIdealBodyWeight;
   },
 
+  addComment(request, response){
+    const assessmentId = request.params.id;
+    const comment = request.body.comment;
+    const assessment = assessmentsStore.getAssessment(assessmentId);
+    const memberId = assessment.memberid;
+
+    assessment.comment = comment;
+
+    assessmentsStore.store.save();
+
+    response.redirect("/trainerview/"+memberId);
+  }
+
 };
 
-module.exports = dashboard;
+module.exports = trainerview;

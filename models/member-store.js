@@ -22,7 +22,13 @@ const memberStore = {
 
   getMemberByEmail(email) {
     return this.store.findOneBy(this.collection, { email: email });
-  }
+  },
+
+  removeMember(id) {
+    const member = this.getMemberById(id);
+    this.store.remove(this.collection, member);
+    this.store.save();
+  },
 };
 
 module.exports = memberStore;

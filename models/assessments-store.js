@@ -3,6 +3,7 @@
 const _ = require("lodash");
 const JsonStore = require("./json-store");
 const accounts = require("../controllers/accounts");
+const memberStore = require("../models/member-store")
 
 
 const assessmentsStore = {
@@ -39,13 +40,22 @@ const assessmentsStore = {
     this.store.save();
   },
 
-  removeAllAssessments() {
-    this.store.removeAll(this.collection);
+  removeAllMemberAssessments(memberid) {
+    const member = memberStore.getMemberById(memberid)
+    const assessments = this.store.findAll(this.collection);
+
+    let i;
+    for( i=0; i = assessments.length-1; i++){
+      let assessment = assessments[i];
+      if(assessment.memberid===member.id){
+        this.store.remove(this.collection, assessment);
+      }
+    }
     this.store.save();
   },
 
   calculateBMI(memberid) {
-    const loggedInMember = accounts.getCurrentMember(memberid);
+    const loggedInMember = memberStore.getMemberById(memberid);
 
     let latestWeight = undefined;
 

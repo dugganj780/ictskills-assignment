@@ -25,7 +25,12 @@
                 </a>
             </td>
         </tr>
-        </tbody>
+        <tr>
+            {{#if isTrainer}}
+            {{>addcomment}}
+            {{/if}}
+        </tr>
+    </tbody>
     {{/each}}
 </table>
 

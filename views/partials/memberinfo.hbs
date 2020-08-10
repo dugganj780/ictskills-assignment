@@ -8,7 +8,11 @@
         </div>
         <div class="column">
             <header class="ui center aligned icon header">
+                {{#if isIdealBodyWeight}}
                 <i class = "green tachometer alternate icon"></i>
+                {{else}}
+                <i class = "red tachometer alternate icon"></i>
+                {{/if}}
                 IDEAL WEIGHT INDICATOR
             </header>
         </div>
@@ -24,6 +28,7 @@
         <div class="column">
             <header class="ui center aligned icon header">
                 <i class = "doctor icon"></i>
+                {{BMIcategory}}
             </header>
         </div>
     </div>

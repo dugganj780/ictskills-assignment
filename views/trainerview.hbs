@@ -1,0 +1,72 @@
+{{> menu id="dashboard"}}
+
+<section class="ui segment">
+    <div class = "ui segments">
+        <div class="ui four column middle aligned grid raised segment">
+            <div class="column">
+                <header class="ui center aligned icon header">
+                    <i class = "user icon"></i>
+                    {{firstname}} {{lastname}}
+                </header>
+            </div>
+            <div class="column">
+                <header class="ui center aligned icon header">
+                    {{#if isIdealBodyWeight}}
+                    <i class = "green tachometer alternate icon"></i>
+                    {{else}}
+                    <i class = "red tachometer alternate icon"></i>
+                    {{/if}}
+                    IDEAL WEIGHT INDICATOR
+                </header>
+            </div>
+            <div class="column">
+                <div class="ui huge left aligned header">
+                    <i class = "big heartbeat icon"></i>
+                    <div class = "content">
+                        {{BMI}}
+                        <div class="ui black sub header">BMI</div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <header class="ui center aligned icon header">
+                    <i class = "doctor icon"></i>
+                    {{BMIcategory}}
+                </header>
+            </div>
+        </div>
+    </div>
+    {{#each assessments}}
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>Weight</th>
+            <th>Chest</th>
+            <th>Thigh</th>
+            <th>Upper Arm</th>
+            <th>Waist</th>
+            <th>Hips</th>
+            <th>Remove</th>
+        </tr>
+
+        </thead>
+            <tbody>
+                <tr>
+                    <td> {{weight}} </td>
+                    <td> {{chest}} </td>
+                    <td> {{thigh}} </td>
+                    <td> {{upperArm}} </td>
+                    <td> {{waist}} </td>
+                    <td> {{hips}} </td>
+                    <td>
+                        <a href="/dashboard/deleteassessment/{{id}}" class="ui icon button">
+                         <i class="icon trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+    </table>
+    {{>addcomment}}
+    {{/each}}
+</section>
+

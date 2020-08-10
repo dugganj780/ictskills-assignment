@@ -10,9 +10,9 @@ const assessment = {
     logger.debug("Assessment id = ", assessmentId);
     const viewData = {
       title: "Assessment",
-      assessment: assessmentsStore.getAssessment(assessmentId)
+    assessment: assessmentsStore.getAssessment(assessmentId),
     };
-    response.render("playlist", viewData);
+    response.render("assessment", viewData);
   },
 
 };
