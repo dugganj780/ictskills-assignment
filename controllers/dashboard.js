@@ -59,11 +59,12 @@ const dashboard = {
       hips: request.body.hips,
       date: Date.now(),
       BMI: Math.round((request.body.weight) / ((loggedInMember.height / 100) * (loggedInMember.height / 100))*100)/100,
-      BMIpresent: true,
 
     };
     logger.debug("Creating a new Assessment", newAssessment);
     assessmentsStore.addAssessment(newAssessment);
+    newAssessment.trend = dashboard.trend(loggedInMember.id);
+    assessmentsStore.store.save();
     response.redirect("/dashboard");
   },
 
@@ -116,6 +117,23 @@ const dashboard = {
     }
     return  isIdealBodyWeight;
   },
+
+  trend(memberid){
+    let trend = false;
+    let assessments = assessmentsStore.getMemberAssessments(memberid);
+    const member = memberStore.getMemberById(memberid);
+
+    if (assessments.length>1) {
+      if(assessments[assessments.length - 2].weight > assessments[assessments.length - 1].weight){
+      trend = true;
+      }
+    } else if (assessments.length=1){
+      if(member.startingweight > assessments[assessments.length - 1].weight){
+        trend = true;
+      }
+    } else {assessments = undefined;}
+    return trend;
+  }
 
 };
 

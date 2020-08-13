@@ -12,7 +12,35 @@
       "date": 1597079755993,
       "BMI": 23.15,
       "BMIpresent": true,
-      "comment": "comment"
+      "comment": "Good Start!"
+    },
+    {
+      "id": "f1864480-db4b-11ea-a028-8f03ead9024a",
+      "memberid": "0e691210-cf7d-11ea-b54e-d502721edfcb",
+      "weight": "74.5",
+      "chest": "89",
+      "thigh": "59",
+      "upperArm": "42",
+      "waist": "79",
+      "hips": "78",
+      "date": 1597092980936,
+      "BMI": 22.99,
+      "BMIpresent": true,
+      "comment": "Great!"
+    },
+    {
+      "id": "008c8cf0-db4c-11ea-a028-8f03ead9024a",
+      "memberid": "0e691210-cf7d-11ea-b54e-d502721edfcb",
+      "weight": "74",
+      "chest": "89",
+      "thigh": "59",
+      "upperArm": "43",
+      "waist": "79",
+      "hips": "78",
+      "date": 1597093006143,
+      "BMI": 22.84,
+      "BMIpresent": true,
+      "comment": "Even Better!"
     }
   ]
 }
