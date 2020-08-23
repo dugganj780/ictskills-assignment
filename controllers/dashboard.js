@@ -3,6 +3,7 @@
 const accounts = require("./accounts.js");
 const logger = require("../utils/logger");
 const assessmentsStore = require("../models/assessments-store");
+const goalsStore = require("../models/goals-store");
 const memberStore = require("../models/member-store")
 const uuid = require("uuid");
 
@@ -11,6 +12,7 @@ const dashboard = {
     logger.info("dashboard rendering");
     const loggedInMember = accounts.getCurrentMember(request);
     const assessments = assessmentsStore.orderAssessmentsByDate(loggedInMember.id);
+    const lastestGoal = goalsStore.getLatestGoal(loggedInMember.id);
 
 
 
@@ -19,6 +21,7 @@ const dashboard = {
       firstname: loggedInMember.firstname,
       lastname: loggedInMember.lastname,
       assessments: assessments,
+      latestGoal: lastestGoal,
 
       //BMIpresent: false,
       //BMI: assessmentsStore.getLatestAssessment(loggedInMember.id).BMI,
@@ -109,26 +112,25 @@ const dashboard = {
   },
 
   isIdealBodyWeight(memberid){
+    let isIdealBodyWeight = false;
     const loggedInMember = memberStore.getMemberById(memberid);
-
     const heightInInches = loggedInMember.height * 0.393701;
     const heightRemainder = heightInInches - 60;
-
     let latestWeight;
+    let idealBodyWeight;
 
-    if(assessmentsStore.getMemberAssessments(memberid).length<0){
+    if(assessmentsStore.getMemberAssessments(memberid).length>0){
     latestWeight = assessmentsStore.getLatestAssessment(memberid).weight;}
     else{latestWeight = loggedInMember.startingweight;}
 
-    let isIdealBodyWeight = false;
 
-    let idealBodyWeight;
     if (heightRemainder<=0){
       idealBodyWeight = 45.5;
     }
     else{
       idealBodyWeight = 45.5 + (heightRemainder * 2.3);
     }
+
 
     if (latestWeight <= idealBodyWeight + 0.2 && latestWeight >= idealBodyWeight - 0.2) {
       isIdealBodyWeight = true;

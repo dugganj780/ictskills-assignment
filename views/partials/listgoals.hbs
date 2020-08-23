@@ -1,0 +1,31 @@
+<table class="ui celled table">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Weight</th>
+        <th>Goal Status</th>
+        <th></th>
+        <th>Remove</th>
+    </tr>
+    </thead>
+<tbody>
+    {{#each goals}}
+    <tr>
+        <td> {{yyyymmdd}} </td>
+        <td> {{weight}} </td>
+        <td> {{status}} </td>
+        <td>
+            {{# if isOpen}} <i class="icon blue hand paper outline"></i>{{/if}}
+            {{# if achieved}} <i class="icon green thumbs up outline"></i> {{/if}}
+            {{# if missed}} <i class="icon red thumbs down outline"></i> {{/if}}
+        </td>
+        <td>
+            <a href="/goals/deletegoal/{{id}}" class="ui icon button">
+                <i class="icon trash"></i>
+            </a>
+        </td>
+    </tr>
+</tbody>
+    {{/each}}
+</table>
+

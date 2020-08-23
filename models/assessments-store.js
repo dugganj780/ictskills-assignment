@@ -87,10 +87,6 @@ const assessmentsStore = {
       assessments = assessmentsStore.getMemberAssessments(memberid);
       assessments = assessments.reverse();
 
-
-
-
-
       if(assessments.length > 1){
         var i;
         for (i = 1; i < assessments.length - 1; i++ ){
