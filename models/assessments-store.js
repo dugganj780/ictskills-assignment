@@ -3,7 +3,8 @@
 const _ = require("lodash");
 const JsonStore = require("./json-store");
 const accounts = require("../controllers/accounts");
-const memberStore = require("../models/member-store")
+const memberStore = require("../models/member-store");
+const dashboard = require("../controllers/dashboard");
 
 
 const assessmentsStore = {
@@ -77,6 +78,47 @@ const assessmentsStore = {
     }
     return BMI;
   },
+
+  orderAssessmentsByDate(memberid){
+    let assessments;
+
+
+    if (assessmentsStore.getMemberAssessments(memberid).length>=1){
+      assessments = assessmentsStore.getMemberAssessments(memberid);
+      assessments = assessments.reverse();
+
+
+
+
+
+      if(assessments.length > 1){
+        var i;
+        for (i = 1; i < assessments.length - 1; i++ ){
+          if (assessments[i].weight > assessments[i-1].weight){
+            assessments[i-1].trend = true;
+          }
+          else{assessments[i-1].trend = false;}
+        }
+        if(assessments[assessments.length - 1].weight < memberStore.getMemberById(memberid).startingweight){
+          assessments[assessments.length - 1].trend = true;
+        }
+        else{assessments[assessments.length - 1].trend = false}
+      }
+      else if (assessments.length == 1){
+        if(assessments[0].weight < memberStore.getMemberById(memberid).startingweight) {
+          assessments[0].trend = true;
+        }
+        else{
+          assessments[0].trend = false;
+        }
+      }
+
+      assessmentsStore.store.save();
+    }
+    else{assessments = undefined;}
+
+    return assessments;
+  }
 
 
 };

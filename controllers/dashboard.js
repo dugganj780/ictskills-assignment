@@ -10,6 +10,7 @@ const dashboard = {
   index(request, response) {
     logger.info("dashboard rendering");
     const loggedInMember = accounts.getCurrentMember(request);
+    const assessments = assessmentsStore.orderAssessmentsByDate(loggedInMember.id);
 
 
 
@@ -17,7 +18,8 @@ const dashboard = {
       title: "Assessments Dashboard",
       firstname: loggedInMember.firstname,
       lastname: loggedInMember.lastname,
-      assessments: assessmentsStore.getMemberAssessments(loggedInMember.id),
+      assessments: assessments,
+
       //BMIpresent: false,
       //BMI: assessmentsStore.getLatestAssessment(loggedInMember.id).BMI,
       //startingBMI: loggedInMember.startingBMI,
@@ -32,7 +34,7 @@ const dashboard = {
       BMIcategory: dashboard.BMIcategory(loggedInMember.id),
       isIdealBodyWeight: dashboard.isIdealBodyWeight(loggedInMember.id)
     };
-    logger.info("about to render render", assessmentsStore.getAllAssessments());
+    logger.info("about to render render", assessmentsStore.orderAssessmentsByDate(loggedInMember.id));
     response.render("dashboard", viewData);
   },
 
@@ -51,19 +53,35 @@ const dashboard = {
       id: uuid.v1(),
       memberid: loggedInMember.id,
       title: request.body.title,
-      weight: request.body.weight,
-      chest: request.body.chest,
-      thigh: request.body.thigh,
-      upperArm: request.body.upperArm,
-      waist: request.body.waist,
-      hips: request.body.hips,
-      date: Date.now(),
+      weight: parseFloat(request.body.weight),
+      chest: parseFloat(request.body.chest),
+      thigh: parseFloat(request.body.thigh),
+      upperArm: parseFloat(request.body.upperArm),
+      waist: parseFloat(request.body.waist),
+      hips: parseFloat(request.body.hips),
+      date: new Date(),
       BMI: Math.round((request.body.weight) / ((loggedInMember.height / 100) * (loggedInMember.height / 100))*100)/100,
 
     };
     logger.debug("Creating a new Assessment", newAssessment);
     assessmentsStore.addAssessment(newAssessment);
-    newAssessment.trend = dashboard.trend(loggedInMember.id);
+
+    let dd = newAssessment.date.getDate();
+    if(dd >=1 && dd <= 9){
+      dd = "0"+ dd;
+    }
+
+    let mm = newAssessment.date.getMonth()+1;
+    if(mm >=1 && mm <= 9){
+      mm = "0"+ mm;
+    }
+
+    const yyyy = newAssessment.date.getFullYear();
+    newAssessment.yyyymmdd = dd + "/" + mm + "/" + yyyy;
+    newAssessment.time  = newAssessment.date.getHours() + ":" + newAssessment.date.getMinutes() + ":" + newAssessment.date.getSeconds();
+
+    //newAssessment.trend = dashboard.trend(loggedInMember.id);
+
     assessmentsStore.store.save();
     response.redirect("/dashboard");
   },
@@ -118,9 +136,9 @@ const dashboard = {
     return  isIdealBodyWeight;
   },
 
-  trend(memberid){
+  /*trend(memberid){
     let trend = false;
-    let assessments = assessmentsStore.getMemberAssessments(memberid);
+    let assessments = assessmentsStore.orderAssessmentsByDate(memberid);
     const member = memberStore.getMemberById(memberid);
 
     if (assessments.length>1) {
@@ -133,7 +151,11 @@ const dashboard = {
       }
     } else {assessments = undefined;}
     return trend;
-  }
+  },
+
+  /*reorderTrends(memberid){
+    let assessments = assessmentsStore.orderAssessmentsByDate(memberid)
+  }*/
 
 };
 

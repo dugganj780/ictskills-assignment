@@ -92,8 +92,8 @@ const accounts = {
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
     let address = request.body.address;
-    let startingweight = request.body.startingweight;
-    let height = request.body.height;
+    let startingweight = parseFloat(request.body.startingweight);
+    let height = parseFloat(request.body.height);
 
 
     member.firstname = firstname;

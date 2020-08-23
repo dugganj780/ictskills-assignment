@@ -39,6 +39,18 @@
       "startingBMI": 31.02,
       "id": "2c8419f0-d664-11ea-9a98-8766307be16f",
       "isTrainer": false
+    },
+    {
+      "firstname": "James",
+      "lastname": "Duggan",
+      "email": "james.duggan@ucc.ie",
+      "password": "secret",
+      "address": "Cork",
+      "height": "180",
+      "startingweight": "78",
+      "startingBMI": 24.07,
+      "id": "23b19330-e478-11ea-ad89-79e5519b5515",
+      "isTrainer": false
     }
   ]
 }
