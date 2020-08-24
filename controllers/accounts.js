@@ -41,6 +41,8 @@ const accounts = {
 
   register(request, response) {
     const member = request.body;
+    member.startingweight = parseFloat(request.body.startingweight);
+    member.height = parseFloat(request.body.height);
     member.startingBMI = Math.round((member.startingweight) / ((member.height / 100) * (member.height / 100))*100)/100;
     member.id = uuid.v1();
     member.isTrainer = false;
@@ -51,15 +53,17 @@ const accounts = {
 
   authenticate(request, response) {
     const member = memberstore.getMemberByEmail(request.body.email);
-    if (member && member.isTrainer == false) {
+    const password = request.body.password;
+    if ((member) && (member.password = password) && (member.isTrainer == false)) {
       response.cookie("assessment", member.email);
       logger.info(`logging in ${member.email} and ${member.BMI}`);
       response.redirect("/dashboard");
-    } else if(member && member.isTrainer){
+    } else if((member) && (member.password = password) && (member.isTrainer)){
       response.cookie("assessment", member.email);
       logger.info(`logging in ${member.email}`);
       response.redirect("/trainerdashboard");
     } else {
+      alert("Incorrect Details Entered.\n Please Try Again")
       response.redirect("/login");
     }
   },
@@ -70,23 +74,6 @@ const accounts = {
   },
 
   updateAccount(request, response) {
-    /*const loggedInMember = memberstore.getMemberById(memberid);
-
-    let firstname;
-    let lastname;
-    let address;
-    let startingweight;
-    let height;
-
-    loggedInMember.firstname = firstname;
-    loggedInMember.lastname = lastname;
-    loggedInMember.address = address;
-    loggedInMember.startingweight = startingweight;
-    loggedInMember.height = height;
-    loggedInMember.startingBMI = Math.round((startingweight) / ((height / 100) * (height / 100))*100)/100;
-
-
-    response.redirect("/dashboard");*/
     const member = accounts.getCurrentMember(request);
 
     let firstname = request.body.firstname;

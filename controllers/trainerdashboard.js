@@ -4,6 +4,7 @@ const accounts = require("./accounts.js");
 const logger = require("../utils/logger");
 const assessmentsStore = require("../models/assessments-store");
 const memberStore = require("../models/member-store")
+const goalsStore = require("../models/goals-store")
 const uuid = require("uuid");
 
 const trainerdashboard = {
@@ -28,6 +29,7 @@ const trainerdashboard = {
 
     logger.debug(`Deleting Member ${memberId}`);
     assessmentsStore.removeAllMemberAssessments(memberId);
+    goalsStore.removeAllMemberGoals(memberId);
     memberStore.removeMember(memberId);
     response.redirect("/trainerdashboard");
   },

@@ -26,6 +26,7 @@
       "id": "0e691210-cf7d-11ea-b54e-d502721edfcb",
       "startingBMI": 23.46,
       "startingweight": "76",
+      "gender": "M",
       "isTrainer": false
     },
     {
@@ -36,20 +37,35 @@
       "address": "Springfield",
       "height": "175",
       "startingweight": "95",
+      "gender": "M",
       "startingBMI": 31.02,
       "id": "2c8419f0-d664-11ea-9a98-8766307be16f",
       "isTrainer": false
     },
     {
-      "firstname": "James",
-      "lastname": "Duggan",
-      "email": "james.duggan@ucc.ie",
+      "firstname": "Test",
+      "lastname": "Member",
+      "email": "test@test.com",
       "password": "secret",
-      "address": "Cork",
+      "address": "Test",
       "height": "180",
-      "startingweight": "78",
-      "startingBMI": 24.07,
-      "id": "23b19330-e478-11ea-ad89-79e5519b5515",
+      "startingweight": 70.4,
+      "gender": "F",
+      "startingBMI": 21.73,
+      "id": "6c8a19b0-e630-11ea-a889-23b9e4a77812",
+      "isTrainer": false
+    },
+    {
+      "firstname": "Lisa",
+      "lastname": "Simpson",
+      "email": "lisa@simpson.com",
+      "password": "secret",
+      "address": "Springfield",
+      "height": 120,
+      "startingweight": 60,
+      "gender": "F",
+      "startingBMI": 41.67,
+      "id": "6f346a70-e636-11ea-ba92-4f43f1b3968a",
       "isTrainer": false
     }
   ]

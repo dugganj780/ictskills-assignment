@@ -11,7 +11,8 @@ const trainerview = {
   index(request, response) {
     logger.info("trainer view rendering");
     const memberId = request.params.id;
-    const member = memberStore.getMemberById(memberId)
+    const member = memberStore.getMemberById(memberId);
+    const lastestGoal = goalsStore.getLatestGoal(memberId);
 
 
 
@@ -21,53 +22,13 @@ const trainerview = {
       lastname: member.lastname,
       assessments: assessmentsStore.getMemberAssessments(member.id),
       memberId: memberId,
-      //BMIpresent: false,
-      //BMI: assessmentsStore.getLatestAssessment(loggedInMember.id).BMI,
-      //startingBMI: loggedInMember.startingBMI,
-      //BMI: assessmentsStore.calculateBMI(loggedInMember.id),
-      /*BMI: function() {
-        let BMI;
-        if (assessmentsStore.getMemberAssessments(loggedInMember).length===0){BMI = loggedInMember.startingBMI;}
-        else{BMI = assessmentsStore.getLatestAssessment(loggedInMember.id).BMI}
-        return BMI;
-      }*/
       BMI: trainerview.calculateBMI(member.id),
       BMIcategory: trainerview.BMIcategory(member.id),
-      isIdealBodyWeight: trainerview.isIdealBodyWeight(member.id)
+      isIdealBodyWeight: trainerview.isIdealBodyWeight(member.id),
+      latestGoal: lastestGoal,
     };
     logger.info("about to render", assessmentsStore.getAllAssessments());
     response.render("trainerview", viewData);
-  },
-
-
-
-  deleteAssessment(request, response) {
-    const assessmentId = request.params.id;
-    logger.debug(`Deleting Assessment ${assessmentId}`);
-    assessmentsStore.removeAssessment(assessmentId);
-    response.redirect("/trainerview");
-  },
-
-  addAssessment(request, response) {
-    const loggedInMember = accounts.getCurrentMember(request);
-    const newAssessment = {
-      id: uuid.v1(),
-      memberid: loggedInMember.id,
-      title: request.body.title,
-      weight: request.body.weight,
-      chest: request.body.chest,
-      thigh: request.body.thigh,
-      upperArm: request.body.upperArm,
-      waist: request.body.waist,
-      hips: request.body.hips,
-      date: Date.now(),
-      BMI: Math.round((request.body.weight) / ((loggedInMember.height / 100) * (loggedInMember.height / 100))*100)/100,
-      comment: undefined,
-
-    };
-    logger.debug("Creating a new Assessment", newAssessment);
-    assessmentsStore.addAssessment(newAssessment);
-    response.redirect("/trainerview");
   },
 
   calculateBMI(memberid) {
@@ -181,8 +142,6 @@ const trainerview = {
     }
     response.redirect("/trainerview/"+newGoal.memberid);
   }
-
-
 
 };
 

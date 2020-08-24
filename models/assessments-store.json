@@ -209,6 +209,66 @@
       "yyyymmdd": "23/08/2020",
       "time": "20:36:49",
       "trend": true
+    },
+    {
+      "id": "8683afd0-e62f-11ea-b742-cdc44ba4a684",
+      "memberid": "6e40bfd0-e62f-11ea-b742-cdc44ba4a684",
+      "weight": 80,
+      "chest": null,
+      "thigh": null,
+      "upperArm": null,
+      "waist": null,
+      "hips": null,
+      "date": "2020-08-24T17:30:38.286Z",
+      "BMI": null,
+      "yyyymmdd": "24/08/2020",
+      "time": "18:30:38"
+    },
+    {
+      "id": "ae86ccf0-e630-11ea-a889-23b9e4a77812",
+      "memberid": "6c8a19b0-e630-11ea-a889-23b9e4a77812",
+      "weight": 70.4,
+      "chest": 30,
+      "thigh": 30,
+      "upperArm": 30,
+      "waist": 30,
+      "hips": 30,
+      "date": "2020-08-24T17:38:54.911Z",
+      "BMI": 21.73,
+      "yyyymmdd": "24/08/2020",
+      "time": "18:38:54",
+      "trend": false,
+      "comment": "Nice!"
+    },
+    {
+      "id": "8a5dbc10-e637-11ea-ae50-912195d785ca",
+      "memberid": "0e691210-cf7d-11ea-b54e-d502721edfcb",
+      "weight": 75,
+      "chest": null,
+      "thigh": null,
+      "upperArm": null,
+      "waist": null,
+      "hips": null,
+      "date": "2020-08-24T18:28:00.721Z",
+      "BMI": 23.15,
+      "yyyymmdd": "24/08/2020",
+      "time": "19:28:0",
+      "trend": false
+    },
+    {
+      "id": "17ab5450-e639-11ea-abf0-a1fb33867382",
+      "memberid": "6f346a70-e636-11ea-ba92-4f43f1b3968a",
+      "weight": 51,
+      "chest": 30,
+      "thigh": 30,
+      "upperArm": 30,
+      "waist": 30,
+      "hips": 30,
+      "date": "2020-08-24T18:39:07.285Z",
+      "BMI": 35.42,
+      "yyyymmdd": "24/08/2020",
+      "time": "19:39:7",
+      "trend": true
     }
   ]
 }

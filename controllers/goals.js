@@ -2,6 +2,7 @@
 
 const accounts = require("./accounts.js");
 const logger = require("../utils/logger");
+const dashboard = require("./dashboard")
 const goalsStore = require("../models/goals-store");
 const assessmentsStore = require("../models/assessments-store");
 const memberStore = require("../models/member-store")
@@ -12,6 +13,7 @@ const goals = {
     logger.info("goals page rendering");
     const loggedInMember = accounts.getCurrentMember(request);
     const goals = goalsStore.orderGoalsByDate(loggedInMember.id);
+    const lastestGoal = goalsStore.getLatestGoal(loggedInMember.id);
 
 
 
@@ -19,7 +21,12 @@ const goals = {
       title: "Goals",
       firstname: loggedInMember.firstname,
       lastname: loggedInMember.lastname,
-      goals: goals
+      goals: goals,
+      latestGoal: lastestGoal,
+      BMI: dashboard.calculateBMI(loggedInMember.id),
+      BMIcategory: dashboard.BMIcategory(loggedInMember.id),
+      isIdealBodyWeight: dashboard.isIdealBodyWeight(loggedInMember.id)
+
     };
     logger.info("about to render", goalsStore.orderGoalsByDate(loggedInMember.id));
     response.render("goals", viewData);

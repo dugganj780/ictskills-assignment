@@ -46,37 +46,13 @@ const assessmentsStore = {
     const assessments = this.store.findAll(this.collection);
 
     let i;
-    for( i=0; i = assessments.length-1; i++){
+    for( i=0; i < assessments.length; i++){
       let assessment = assessments[i];
       if(assessment.memberid===member.id){
         this.store.remove(this.collection, assessment);
       }
     }
     this.store.save();
-  },
-
-  calculateBMI(memberid) {
-    const loggedInMember = memberStore.getMemberById(memberid);
-
-    let latestWeight = undefined;
-
-    if (assessmentsStore.getMemberAssessments(memberid).length < 0){
-      latestWeight = this.getLatestAssessment(memberid).weight;
-    }
-
-
-
-    const height = loggedInMember.height;
-    let BMI = undefined;
-
-    if(latestWeight==undefined) {
-      BMI = (loggedInMember.startingweight) / ((height / 100) * (height / 100));
-    }
-    else
-    {
-      BMI = (latestWeight) / ((height / 100) * (height / 100));
-    }
-    return BMI;
   },
 
   orderAssessmentsByDate(memberid){
@@ -108,7 +84,6 @@ const assessmentsStore = {
           assessments[0].trend = false;
         }
       }
-
       assessmentsStore.store.save();
     }
     else{assessments = undefined;}

@@ -22,17 +22,6 @@ const dashboard = {
       lastname: loggedInMember.lastname,
       assessments: assessments,
       latestGoal: lastestGoal,
-
-      //BMIpresent: false,
-      //BMI: assessmentsStore.getLatestAssessment(loggedInMember.id).BMI,
-      //startingBMI: loggedInMember.startingBMI,
-      //BMI: assessmentsStore.calculateBMI(loggedInMember.id),
-      /*BMI: function() {
-        let BMI;
-        if (assessmentsStore.getMemberAssessments(loggedInMember).length===0){BMI = loggedInMember.startingBMI;}
-        else{BMI = assessmentsStore.getLatestAssessment(loggedInMember.id).BMI}
-        return BMI;
-      }*/
       BMI: dashboard.calculateBMI(loggedInMember.id),
       BMIcategory: dashboard.BMIcategory(loggedInMember.id),
       isIdealBodyWeight: dashboard.isIdealBodyWeight(loggedInMember.id)
@@ -83,8 +72,6 @@ const dashboard = {
     newAssessment.yyyymmdd = dd + "/" + mm + "/" + yyyy;
     newAssessment.time  = newAssessment.date.getHours() + ":" + newAssessment.date.getMinutes() + ":" + newAssessment.date.getSeconds();
 
-    //newAssessment.trend = dashboard.trend(loggedInMember.id);
-
     assessmentsStore.store.save();
     response.redirect("/dashboard");
   },
@@ -125,10 +112,16 @@ const dashboard = {
 
 
     if (heightRemainder<=0){
-      idealBodyWeight = 45.5;
-    }
+      if(loggedInMember.gender === "M") {
+        idealBodyWeight = 50;
+      }
+      else{idealBodyWeight = 45.5;}
+      }
     else{
-      idealBodyWeight = 45.5 + (heightRemainder * 2.3);
+      if(loggedInMember.gender === "M"){
+        idealBodyWeight = 50 + (heightRemainder * 2.3)
+      }
+      else{idealBodyWeight = 45.5 + (heightRemainder * 2.3);}
     }
 
 
@@ -137,27 +130,6 @@ const dashboard = {
     }
     return  isIdealBodyWeight;
   },
-
-  /*trend(memberid){
-    let trend = false;
-    let assessments = assessmentsStore.orderAssessmentsByDate(memberid);
-    const member = memberStore.getMemberById(memberid);
-
-    if (assessments.length>1) {
-      if(assessments[assessments.length - 2].weight > assessments[assessments.length - 1].weight){
-      trend = true;
-      }
-    } else if (assessments.length=1){
-      if(member.startingweight > assessments[assessments.length - 1].weight){
-        trend = true;
-      }
-    } else {assessments = undefined;}
-    return trend;
-  },
-
-  /*reorderTrends(memberid){
-    let assessments = assessmentsStore.orderAssessmentsByDate(memberid)
-  }*/
 
 };
 

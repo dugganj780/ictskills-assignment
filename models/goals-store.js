@@ -14,10 +14,6 @@ const goalsStore = {
   }),
   collection: "goalsCollection",
 
-  getAllGoals() {
-    return this.store.findAll(this.collection);
-  },
-
   getGoal(id) {
     return this.store.findOneBy(this.collection, { id: id });
   },
@@ -47,7 +43,7 @@ const goalsStore = {
     const goals = this.store.findAll(this.collection);
 
     let i;
-    for( i=0; i = goals.length-1; i++){
+    for( i=0; i < goals.length; i++){
       let goal = goals[i];
       if(goal.memberid===member.id){
         this.store.remove(this.collection, goal);
@@ -70,13 +66,13 @@ const goalsStore = {
       var j;
       for(i = 0; i === assessments.length-1; i++){
         for(j = 0; j === goals.length-1; j++)
-          if (goals[j].yyyymmdd == assessments[i].yyyymmdd && goals[j].weight === assessments[i].weight){
+          if (goals[j].yyyymmdd === assessments[i].yyyymmdd && goals[j].weight === assessments[i].weight){
               goals[j].status = "Achieved!";
               goals[j].isOpen = false;
               goals[j].achieved = true;
               goals[j].missed = false;
             }
-            else if (goals[j].yyyymmdd == assessments[i].yyyymmdd && goals[j].weight !== assessments[i].weight){
+            else if (goals[j].yyyymmdd === assessments[i].yyyymmdd && goals[j].weight !== assessments[i].weight){
               goals[j].status = "Missed";
               goals[j].isOpen = false;
               goals[j].achieved = false;
