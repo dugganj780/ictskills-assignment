@@ -61,7 +61,7 @@ const goals = {
     var i;
     for(i = 0; i === assessments.length-1; i++){
       if (newGoal.yyyymmdd === assessments[i].yyyymmdd){
-        if(newGoal.weight === assessments[i].weight){
+        if(newGoal.weight >= assessments[i].weight){
           status = "Achieved!";
           newGoal.isOpen = false;
           newGoal.achieved = true;
