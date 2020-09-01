@@ -41,16 +41,6 @@
       "yyyymmdd": "26/08/2020"
     },
     {
-      "id": "427df3f0-e570-11ea-809d-9ba0484e251b",
-      "memberid": "0e691210-cf7d-11ea-b54e-d502721edfcb",
-      "weight": 75,
-      "status": "Achieved!",
-      "isOpen": false,
-      "achieved": true,
-      "missed": false,
-      "yyyymmdd": "23/08/2020"
-    },
-    {
       "id": "ce08bfc0-e630-11ea-a889-23b9e4a77812",
       "memberid": "6c8a19b0-e630-11ea-a889-23b9e4a77812",
       "weight": 70.4,
@@ -79,6 +69,26 @@
       "achieved": false,
       "missed": true,
       "yyyymmdd": "24/08/2020"
+    },
+    {
+      "id": "64721950-ec41-11ea-9548-35f4cb8ee259",
+      "memberid": "0e691210-cf7d-11ea-b54e-d502721edfcb",
+      "weight": 75,
+      "status": "Achieved!",
+      "isOpen": false,
+      "achieved": true,
+      "missed": false,
+      "yyyymmdd": "01/09/2020"
+    },
+    {
+      "id": "68a0e400-ec43-11ea-98af-43237007d39a",
+      "memberid": "2c8419f0-d664-11ea-9a98-8766307be16f",
+      "weight": 80,
+      "status": "Open",
+      "isOpen": true,
+      "achieved": false,
+      "missed": false,
+      "yyyymmdd": "02/09/2020"
     }
   ]
 }

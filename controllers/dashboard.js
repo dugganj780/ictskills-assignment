@@ -70,7 +70,23 @@ const dashboard = {
 
     const yyyy = newAssessment.date.getFullYear();
     newAssessment.yyyymmdd = dd + "/" + mm + "/" + yyyy;
-    newAssessment.time  = newAssessment.date.getHours() + ":" + newAssessment.date.getMinutes() + ":" + newAssessment.date.getSeconds();
+
+    let timeHours = newAssessment.date.getHours();
+    if(timeHours >=0 && timeHours <= 9){
+      timeHours = "0" + timeHours;
+    }
+
+    let timeMinutes = newAssessment.date.getMinutes();
+    if(timeMinutes >=0 && timeMinutes <= 9){
+      timeMinutes = "0" + timeMinutes;
+    }
+
+    let timeSeconds = newAssessment.date.getSeconds();
+    if(timeSeconds >=0 && timeSeconds <= 9){
+      timeSeconds = "0" + timeSeconds;
+    }
+
+    newAssessment.time  = timeHours + ":" + timeMinutes + ":" + timeSeconds;
 
     assessmentsStore.store.save();
     response.redirect("/dashboard");
