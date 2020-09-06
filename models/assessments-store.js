@@ -65,11 +65,13 @@ const assessmentsStore = {
 
       if(assessments.length > 1){
         var i;
-        for (i = 1; i < assessments.length - 1; i++ ){
+        for (i = 1; i <= assessments.length - 1; i++ ){
           if (assessments[i].weight > assessments[i-1].weight){
             assessments[i-1].trend = true;
           }
-          else{assessments[i-1].trend = false;}
+          else{
+            assessments[i-1].trend = false;
+          }
         }
         if(assessments[assessments.length - 1].weight < memberStore.getMemberById(memberid).startingweight){
           assessments[assessments.length - 1].trend = true;

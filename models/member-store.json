@@ -67,6 +67,19 @@
       "startingBMI": 41.67,
       "id": "6f346a70-e636-11ea-ba92-4f43f1b3968a",
       "isTrainer": false
+    },
+    {
+      "firstname": "Tester",
+      "lastname": "Test",
+      "email": "test2@test.com",
+      "password": "secret",
+      "address": "Somewhere",
+      "height": 180,
+      "startingweight": 85,
+      "gender": "M",
+      "startingBMI": 26.23,
+      "id": "667df520-f042-11ea-94b8-296154b8448c",
+      "isTrainer": false
     }
   ]
 }
